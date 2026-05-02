@@ -17,3 +17,9 @@ spec:
         image: nginx
         ports:
         - containerPort: 80
+        env:
+        - name: ENV_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: nginx-config
+              key: ENV_NAME

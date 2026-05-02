@@ -1,44 +1,46 @@
 # Cloud Engineer Journey 🚀
-
 > From Lahore to the cloud — an 8-month journey to become an AWS Cloud Engineer
 
 ## About
 - 👤 Umar Sayyam
 - 🎓 BSCS Graduate
 - 📍 Lahore, Pakistan
-- 🎯 Goal: AWS Cloud Engineer
+- 🎯 Goal: AWS Cloud Engineer (Remote — UK/US/UAE or local Pakistani tech companies)
 
 ## Roadmap Progress
-
-| Stage | Topic | Status | Duration |
-|-------|-------|--------|----------|
-| 1 | Linux & Networking | ✅ Complete | 2 days |
-| 2 | Python & Git | ✅ Complete | 3 days |
-| 3 | Cloud Concepts + CLF-C02 | 🔄 Next | 2 weeks |
-| 4 | AWS Deep Dive + SAA-C03 | ⬜ Planned | 6 weeks |
-| 5 | DevOps & Projects | ⬜ Planned | 6 weeks |
+| Stage | Topic | Status |
+|-------|-------|--------|
+| 1 | Linux & Networking | ✅ Complete |
+| 2 | Python & Git | ✅ Complete |
+| 3 | Cloud Concepts | ✅ Complete |
+| 4 | AWS Deep Dive | ✅ Complete |
+| 5 | DevOps & Projects | 🔄 In Progress |
 
 ## Skills
+### AWS
+- EC2, S3, IAM, VPC, RDS, DynamoDB
+- Lambda, CloudWatch, CloudTrail
+- Route 53, CloudFront, ELB
 
-### Currently Learning
+### DevOps
+- Docker — images, containers, Dockerfile, Docker Compose
+- Kubernetes — Deployments, Services, ConfigMaps, Namespaces
+- Terraform — coming soon
+- CI/CD with GitHub Actions — coming soon
+
+### Programming & Tools
 - Python (boto3, APIs, automation)
-- AWS (EC2, S3, IAM, VPC)
 - Linux & Bash scripting
 - Git & GitHub
 
-### Coming Soon
-- Docker & Kubernetes
-- Terraform (Infrastructure as Code)
-- CI/CD with GitHub Actions
-
-## Projects (Coming Soon)
+## Projects (In Progress)
 - Cloud Resume Challenge
 - Serverless File Pipeline (Lambda + S3)
-- Kubernetes Deployment on EKS
+- Containerized API on EKS + Terraform
 
-## Certifications (Planned)
-- AWS Cloud Practitioner (CLF-C02)
-- AWS Solutions Architect Associate (SAA-C03)
+## Certifications
+- AWS SAA-C03 — prepared, exam postponed
+- Terraform Associate — planned
 
 ## Connect
 - GitHub: [UmarSayyam](https://github.com/UmarSayyam)

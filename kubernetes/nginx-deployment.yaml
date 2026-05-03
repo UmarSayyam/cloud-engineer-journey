@@ -36,6 +36,7 @@ spec:
           periodSeconds: 3
         ports:
         - containerPort: 80
+        
         env:
         - name: ENV_NAME
           valueFrom:
@@ -47,3 +48,4 @@ spec:
             secretKeyRef:
               name: nginx-secret
               key: DB_PASSWORD
+      

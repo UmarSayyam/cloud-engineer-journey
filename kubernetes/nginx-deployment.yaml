@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx
+        image: nginx:1.25
         resources: 
           requests:
             memory: 64Mi
@@ -42,3 +42,8 @@ spec:
             configMapKeyRef:
               name: nginx-config
               key: ENV_NAME
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: nginx-secret
+              key: DB_PASSWORD

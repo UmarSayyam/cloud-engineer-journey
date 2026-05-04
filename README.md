@@ -24,8 +24,8 @@
 
 ### DevOps
 - Docker — images, containers, Dockerfile, Docker Compose
-- Kubernetes — Deployments, Services, ConfigMaps, Namespaces
-- Terraform — coming soon
+- Kubernetes — Deployments, Services, ConfigMaps, Secrets, PVC, Namespaces, Probes
+- Terraform — in progress
 - CI/CD with GitHub Actions — coming soon
 
 ### Programming & Tools

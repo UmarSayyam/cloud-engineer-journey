@@ -32,6 +32,8 @@ resource "aws_s3_bucket_versioning" "my_bucket_versioning" {
 resource "aws_instance" "my_server" {
     ami             = "ami-0388e3ada3d9812da"
     instance_type   = var.instance_type
+    subnet_id = aws_subnet.public.id
+    vpc_security_group_ids = [aws_security_group.web_sg.id]
     
     tags = merge(local.common_tags, {
       Name          = "umar-terraform-server"

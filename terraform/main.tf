@@ -14,10 +14,10 @@ provider "aws" {
 resource "aws_s3_bucket" "my_bucket" {
     bucket = "umar-terraform-bucket-2026"
 
-    tags = {
+    tags = merge(local.common_tags, {
       Name        =    "umar-terraform-bucket"
-      Environment =    "dev"
-    }
+      
+    })
 }
 
 resource "aws_s3_bucket_versioning" "my_bucket_versioning" {
@@ -31,10 +31,10 @@ resource "aws_s3_bucket_versioning" "my_bucket_versioning" {
 
 resource "aws_instance" "my_server" {
     ami             = "ami-0388e3ada3d9812da"
-    instance_type   = "t3.micro"
+    instance_type   = var.instance_type
     
-    tags = {
+    tags = merge(local.common_tags, {
       Name          = "umar-terraform-server"
-      Environment   = "dev" 
-    }
+      
+    })
 }

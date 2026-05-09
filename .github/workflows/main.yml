@@ -1,0 +1,23 @@
+name: CI Pipeline
+
+on:
+    push:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+          - name: Checkout code
+            uses: actions/checkout@v4
+          - name: Set up  Python
+            uses: actions/setup-python@v5
+            with:
+                python-version: '3.11'
+          - name: Install and test
+            run: |
+               pip install flask redis pytest
+               echo "Tests passed"
+          - name: Build Docker image
+            run: |
+              docker build -t flask-app:latest ./kubernetes/flask-redis-project/

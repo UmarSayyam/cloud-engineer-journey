@@ -207,8 +207,8 @@ footer p{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted)}
       <div class="stat-label">portfolio projects</div>
     </div>
     <div class="stat reveal">
-      <div class="stat-num">8mo</div>
-      <div class="stat-label">intensive training</div>
+      <div class="stat-num" id="visitor-count">...</div>
+      <div class="stat-label">portfolio views</div>
     </div>
     <div class="stat reveal">
       <div class="stat-num">SAA</div>
@@ -406,12 +406,12 @@ footer p{font-family:'DM Mono',monospace;font-size:.72rem;color:var(--muted)}
       <div class="section-tag reveal" style="text-align:center">// get in touch</div>
       <h2 class="section-title reveal">Let's work together</h2>
       <div class="section-line reveal" style="margin:0 auto 24px"></div>
-      <p class="reveal" style="color:#64748b;font-size:.95rem">Open to cloud engineer roles — local (Lahore) or remote (UK/US/UAE). Let's build something reliable.</p>
+      <p class="reveal" style="color:#64748b;font-size:.95rem">Open to cloud engineer roles — local (Lahore) or remote (worldwide). Let's build something reliable.</p>
       <a href="mailto:umarsayyam123456@gmail.com" class="contact-email reveal">umarsayyam123456@gmail.com</a>
       <p class="reveal" style="font-family:'DM Mono',monospace;font-size:.78rem;color:var(--muted)">+92 305 494 0080</p>
       <div class="contact-links reveal">
         <a href="https://github.com/UmarSayyam" class="contact-link" target="_blank">github</a>
-        <a href="https://linkedin.com/in/umarsayyam" class="contact-link" target="_blank">linkedin</a>
+        <a href="https://www.linkedin.com/in/umar-sayyam-237458340" class="contact-link" target="_blank">linkedin</a>
       </div>
     </div>
   </div>
@@ -433,7 +433,7 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     <button onclick="document.getElementById('contact-modal').style.display='none'" style="position:absolute;top:16px;right:16px;background:none;border:none;color:#64748b;font-size:1.4rem;cursor:pointer;">×</button>
     <p style="font-family:'DM Mono',monospace;font-size:.78rem;color:#34d399;letter-spacing:.1em;margin-bottom:12px">// get in touch</p>
     <h3 style="font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:800;margin-bottom:24px;">Let's work together</h3>
-    <p style="color:#64748b;font-size:.9rem;margin-bottom:32px;line-height:1.7;">Open to cloud engineer roles — local (Lahore) or remote (UK/US/UAE). Drop me an email or call directly.</p>
+    <p style="color:#64748b;font-size:.9rem;margin-bottom:32px;line-height:1.7;">Open to cloud engineer roles — local (Lahore) or remote (worldwide). Drop me an email or call directly.</p>
     <div style="display:flex;flex-direction:column;gap:16px;">
       <a href="mailto:umarsayyam123456@gmail.com" style="display:flex;align-items:center;gap:12px;padding:14px 20px;background:rgba(56,189,248,.05);border:1px solid rgba(56,189,248,.2);border-radius:8px;text-decoration:none;transition:border-color .2s;">
         <span style="font-size:1.2rem;">📧</span>
@@ -459,6 +459,17 @@ document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </div>
   </div>
 </div>
+
+<script>
+  // Visitor counter
+  fetch('https://xy2hlg5ym5.execute-api.ap-south-1.amazonaws.com/prod/visitors')
+    .then(res => res.json())
+    .then(data => {
+      const el = document.getElementById('visitor-count');
+      if (el) el.textContent = data.total_visitors;
+    })
+    .catch(err => console.log('Counter error:', err));
+</script>
 
 </body>
 </html>

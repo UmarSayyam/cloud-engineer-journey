@@ -25,8 +25,8 @@
 ### DevOps
 - Docker — images, containers, Dockerfile, Docker Compose
 - Kubernetes — Deployments, Services, ConfigMaps, Secrets, PVC, Namespaces, Probes
-- Terraform — in progress
-- CI/CD with GitHub Actions — coming soon
+- Terraform — VPC, EC2, S3, modules, variables, outputs, user_data
+- CI/CD with GitHub Actions — in progress
 
 ### Programming & Tools
 - Python (boto3, APIs, automation)

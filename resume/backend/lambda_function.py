@@ -44,6 +44,29 @@ def lambda_handler(event, context):
         'Access-Control-Allow-Headers': 'Content-Type'
     }
 
+    # Admin endpoint - returns all visitors
+    path = event.get('path', '')
+    if path == '/admin' or path.endswith('/admin'):
+        try:
+            response = table.scan()
+            visitors = response['Items']
+            # Convert Decimal to int
+            for v in visitors:
+                if 'visit_count' in v:
+                    v['visit_count'] = int(v['visit_count'])
+            visitors.sort(key=lambda x: x.get('last_visit', ''), reverse=True)
+            return {
+                'statusCode': 200,
+                'headers': headers,
+                'body': json.dumps({'visitors': visitors})
+            }
+        except Exception as e:
+            return {
+                'statusCode': 500,
+                'headers': headers,
+                'body': json.dumps({'error': str(e)})
+            }
+
     if event.get('httpMethod') == 'OPTIONS':
         return {'statusCode': 200, 'headers': headers, 'body': ''}
     

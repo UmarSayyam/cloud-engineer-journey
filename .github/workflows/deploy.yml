@@ -1,0 +1,80 @@
+name: Build and Deploy to AWS EKS
+
+on:
+  push:
+    branches:
+      - main  # Triggers the workflow whenever code is pushed to the main branch
+
+env:
+  AWS_REGION: ap-south-1
+  ECR_REPOSITORY: eks-api
+  ECR_REGISTRY: 216141407996.dkr.ecr.ap-south-1.amazonaws.com
+  EKS_CLUSTER_NAME: eks-demo
+
+jobs:
+  build-and-push:
+    name: Build Docker Image & Push to ECR
+    runs-on: ubuntu-latest
+
+    steps:
+    # 1. Check out the repository code to the GitHub runner
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Configure AWS credentials using repository secrets
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    # 3. Log in to the Amazon ECR registry
+    - name: Login to Amazon ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    # 4. Build, tag, and push the image to your ECR repository
+    - name: Build, Tag, and Push Image to ECR
+      env:
+        REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+        IMAGE_TAG: latest
+      run: |
+        docker build -t $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+        docker push $REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+
+  deploy-to-eks:
+    name: Deploy Application to EKS Cluster
+    runs-on: ubuntu-latest
+    needs: build-and-push # Ensures deployment only happens if the Docker build succeeds
+
+    steps:
+    # 1. Check out code again to access deployment.yaml and service.yaml
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    # 2. Configure AWS credentials for EKS cluster authentication
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    # 3. Download and set up kubectl on the runner
+    - name: Set up Kubectl
+      uses: azure/setup-kubectl@v4
+      with:
+        version: 'v1.28.0' # Matches standard robust EKS platform requirements
+
+    # 4. Update local kubeconfig to point to the remote EKS cluster
+    - name: Update Kubeconfig
+      run: |
+        aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
+
+    # 5. Deploy manifests and trigger a rolling update to pull the fresh image
+    - name: Deploy Manifests to EKS
+      run: |
+        kubectl apply -f k8s/deployment.yaml
+        kubectl apply -f k8s/service.yaml
+        kubectl rollout restart deployment/eks-api-deployment
